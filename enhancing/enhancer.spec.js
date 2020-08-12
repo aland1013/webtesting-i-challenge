@@ -70,4 +70,20 @@ describe('enhancing system', () => {
       expect(diminishedItem.durability).toBeGreaterThanOrEqual(0);
     });
   });
+
+  describe('get() method', () => {
+    it('if item enhancement is greater than 0, change the name to include enhancement level wrapped in square brackets and preceded by a plus sign', () => {
+      const newItem = enhancer.get(item);
+      const expected = expect.stringMatching(/\[\+[\d]{1,2}\]\s[\w]*$/);
+
+      expect(newItem.name).toEqual(expected);
+    });
+
+    it('if item enhancement is 0, the name is not changed', () => {
+      item.enhancement = 0;
+      const newItem = enhancer.get(item);
+
+      expect(newItem.name).toBe('sword');
+    });
+  });
 });
